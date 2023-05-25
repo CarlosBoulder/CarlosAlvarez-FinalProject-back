@@ -2,7 +2,7 @@ import "../../loadEnvironment.js";
 import createDebug from "debug";
 import chalk from "chalk";
 import { type NextFunction, type Request, type Response } from "express";
-import type CustomError from "../../customError/CustomError.js";
+import type CustomError from "../../customError/CustomError";
 
 const debug = createDebug("boulderlab-api:server:middlewares:errorMiddlewares");
 
