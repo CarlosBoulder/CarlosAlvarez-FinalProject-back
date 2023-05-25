@@ -4,7 +4,7 @@ import morgan from "morgan";
 import {
   generalError,
   notFoundError,
-} from "../middlewares/error/errorMiddlewares.js";
+} from "./middlewares/error/errorMiddlewares.js";
 
 const app = express();
 

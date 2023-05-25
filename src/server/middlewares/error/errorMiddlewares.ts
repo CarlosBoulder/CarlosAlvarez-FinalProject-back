@@ -1,8 +1,8 @@
-import "../../loadEnvironment.js";
 import createDebug from "debug";
 import chalk from "chalk";
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../../customError/CustomError.js";
+
 const debug = createDebug("boulderlab-api:server:middlewares:errorMiddlewares");
 
 export const generalError = (
