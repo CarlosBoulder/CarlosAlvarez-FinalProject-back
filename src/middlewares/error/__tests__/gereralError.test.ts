@@ -1,5 +1,5 @@
 import { type Response, type Request, type NextFunction } from "express";
-import { generalError } from "../errorMiddleware.js";
+import { generalError } from "../errorMiddlewares.js";
 import CustomError from "../../../customError/CustomError.js";
 
 beforeEach(() => {

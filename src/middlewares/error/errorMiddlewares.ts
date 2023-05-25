@@ -2,7 +2,7 @@ import "../../loadEnvironment.js";
 import createDebug from "debug";
 import chalk from "chalk";
 import { type NextFunction, type Request, type Response } from "express";
-import type CustomError from "../../customError/CustomError";
+import CustomError from "../../customError/CustomError.js";
 
 const debug = createDebug("boulderlab-api:server:middlewares:errorMiddlewares");
 
@@ -18,4 +18,14 @@ export const generalError = (
   const message = error.statusCode ? error.message : "General error";
 
   res.status(statusCode).json({ message });
+};
+
+export const notFoundError = (
+  _req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
+  const error = new CustomError(404, "Endpoint not found");
+
+  next(error);
 };
