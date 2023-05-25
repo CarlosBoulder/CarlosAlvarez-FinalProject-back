@@ -1,7 +1,7 @@
 import "./loadEnvironment.js";
 import chalk from "chalk";
-import app from "./server/app.js";
 import createDebug from "debug";
+import app from "./server/app.js";
 
 const debug = createDebug("boulderlab-api:root");
 
