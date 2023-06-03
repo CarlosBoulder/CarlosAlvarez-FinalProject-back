@@ -8,7 +8,6 @@ export const getBoulders = async (
 ) => {
   try {
     const boulders = await Boulder.find().exec();
-
     res.status(200).json({ boulders });
   } catch (error: unknown) {
     next(error);
