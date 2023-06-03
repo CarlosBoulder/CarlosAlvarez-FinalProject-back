@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from "express";
-import Boulder from "../../../database/models/Boulders";
+import Boulder from "../../../database/models/Boulders.js";
 
 export const getBoulders = async (
   req: Request,

@@ -13,7 +13,11 @@ const boulderSchema = new Schema({
     type: String,
     required: true,
   },
-  location: {
+  spot: {
+    type: String,
+    required: true,
+  },
+  country: {
     type: String,
     required: true,
   },

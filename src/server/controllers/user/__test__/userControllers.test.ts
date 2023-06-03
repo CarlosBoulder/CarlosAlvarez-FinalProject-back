@@ -19,8 +19,8 @@ describe("Given a loginUser controller", () => {
 
   const req: Pick<UserCredentialsRequest, "body"> = {
     body: {
-      username: "usuaias",
-      password: "usuaias",
+      username: "testUsername",
+      password: "testPassword",
     },
   };
 
@@ -33,11 +33,11 @@ describe("Given a loginUser controller", () => {
 
   jwt.sign = jest.fn().mockReturnValue(mockToken);
 
-  describe("When it recieve a request with a valid credentials and a response", () => {
+  describe("When it recieves a request with a valid credentials and a response", () => {
     const mockUser: UserCredentialsStructure = {
       _id: new Types.ObjectId().toString(),
-      username: "usuaias",
-      password: "usuaias",
+      username: "testUsername",
+      password: "testPassword",
     };
 
     User.findOne = jest.fn().mockReturnValue({
