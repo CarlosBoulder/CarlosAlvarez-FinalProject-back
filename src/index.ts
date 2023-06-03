@@ -10,6 +10,8 @@ const port = process.env.PORT ?? 4000;
 
 const mongoDbConnection = process.env.MONGODB_CONECTION;
 
+const localHost = `http://localhost:${port}`;
+
 if (!mongoDbConnection) {
   debug("missing environment variables");
   process.exit(1);
@@ -23,5 +25,5 @@ try {
 }
 
 app.listen(port, () => {
-  debug(`Listening on ${chalk.green(`http://localhost:${port}`)}`);
+  debug(`Listening on ${chalk.green(localHost)}`);
 });

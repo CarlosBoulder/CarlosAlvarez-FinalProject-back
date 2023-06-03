@@ -7,6 +7,8 @@ import {
 } from "./middlewares/error/errorMiddlewares.js";
 import { pingController } from "./controllers/ping/pingController.js";
 import userRouter from "./routers/users/userRouter.js";
+import boulderRouter from "./routers/boulderRouter/boulderRouter.js";
+import { auth } from "./middlewares/auth/authMiddleware.js";
 
 const app = express();
 
@@ -27,6 +29,8 @@ app.use(express.json());
 app.get("/", pingController);
 
 app.use("/user", userRouter);
+
+app.use("/boulders", auth, boulderRouter);
 
 app.use(notFoundError);
 

@@ -24,3 +24,9 @@ export interface MockUserCredentials {
   username: string;
   password: number;
 }
+
+export interface AuthRequest extends Request {
+  userId: string;
+}
+
+export type CustomResponse = Pick<Response, "status" | "json">;
