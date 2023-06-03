@@ -24,3 +24,7 @@ export interface MockUserCredentials {
   username: string;
   password: number;
 }
+
+export interface AuthRequest extends Request {
+  userId: string;
+}
