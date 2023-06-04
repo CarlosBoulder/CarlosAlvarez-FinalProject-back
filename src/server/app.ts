@@ -26,7 +26,7 @@ app.use(morgan("dev"));
 
 app.use(express.json());
 
-app.get("/", pingController);
+app.get("/ping", pingController);
 
 app.use("/user", userRouter);
 
