@@ -30,7 +30,9 @@ export const loginUser = async (
       name: user.username,
     };
 
-    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET!);
+    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET!, {
+      expiresIn: "1d",
+    });
 
     res.status(200).json({ token });
   } catch (error) {
