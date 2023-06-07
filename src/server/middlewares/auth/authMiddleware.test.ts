@@ -29,6 +29,8 @@ describe("Given an auth middleware", () => {
   describe("When it receives an authorization header with an invalid token and a next function", () => {
     test("Then it should call the received next function with a 401 'Invalid token' error", () => {
       const expectedError = new CustomError(401, "Invalid token");
+      expectedError.name = "JsonWebTokenError";
+
       jwt.verify = jest.fn().mockImplementation(() => {
         throw expectedError;
       });
