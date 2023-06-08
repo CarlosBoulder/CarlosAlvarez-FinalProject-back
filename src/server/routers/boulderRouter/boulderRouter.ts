@@ -8,6 +8,6 @@ const boulderRouter = Router();
 
 boulderRouter.get("/all", getBoulders);
 
-boulderRouter.delete("/all", deleteBoulder);
+boulderRouter.delete("/:boulderId", deleteBoulder);
 
 export default boulderRouter;
