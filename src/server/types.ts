@@ -30,3 +30,23 @@ export interface AuthRequest extends Request {
 }
 
 export type CustomResponse = Pick<Response, "status" | "json">;
+
+export interface BoulderDetails {
+  body: BoulderDetailsBody;
+}
+
+export type BoulderDetailsRequest = Request<
+  Record<string, unknown>,
+  Record<string, unknown>,
+  BoulderDetails
+>;
+
+export interface BoulderDetailsBody {
+  img: string;
+  name: string;
+  crag: string;
+  spot: string;
+  country: string;
+  description: string;
+  grade: string;
+}

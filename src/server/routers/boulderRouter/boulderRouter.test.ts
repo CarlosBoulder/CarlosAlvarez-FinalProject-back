@@ -40,7 +40,7 @@ describe("Given a GET 'boulders/all' endpoint", () => {
     });
   });
 
-  describe("When it recieve a request with invalid token", () => {
+  describe("When it recieves a request with invalid token", () => {
     test("Then it should return statusCode 401 ", async () => {
       const expectedStatus = 401;
 

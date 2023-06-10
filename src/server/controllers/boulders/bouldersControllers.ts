@@ -1,6 +1,8 @@
 import { type NextFunction, type Request, type Response } from "express";
 import Boulder from "../../../database/models/Boulders.js";
 import CustomError from "../../../customError/CustomError.js";
+import { Types } from "mongoose";
+import { type BoulderDetailsRequest } from "../../types.js";
 
 export const getBoulders = async (
   req: Request,
@@ -32,6 +34,31 @@ export const deleteBoulder = async (
     }
 
     res.status(200).json({ message: `Boulder deleted` });
+  } catch (error: unknown) {
+    next(error);
+  }
+};
+
+export const addBoulder = async (
+  req: BoulderDetailsRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { body } = req.body;
+
+    const newboulder = await Boulder.create({
+      ...body,
+      boulder: new Types.ObjectId(),
+    });
+
+    if (!newboulder) {
+      const error = new CustomError(400, "Could not create your boulder");
+
+      throw error;
+    }
+
+    res.status(201).json({ message: `Boulder created` });
   } catch (error: unknown) {
     next(error);
   }
