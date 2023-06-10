@@ -104,6 +104,40 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Create Boulder",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDcwNWYyOTU0YWVhZTkyNWQ0NmQ4ZDQiLCJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODY0MTQzMzJ9.3VrKMn-CuHQe4SJi7Gi_m1aquM6mmN1rCi3tkYszYu4",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"body\":{\r\n    \"img\": \"https://mountainproject.com/assets/photos/climb/109565733_smallMed_1494353840.jpg?cache=1538589155\",\r\n  \"name\": \"The Rhino 2\",\r\n  \"crag\": \"The Rhino 2\",\r\n  \"grade\": \"7B\",\r\n  \"description\": \"Sit start\",\r\n  \"country\": \"South Africa\",\r\n  \"spot\": \"Rocklands\"\r\n}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/boulders/create",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["boulders", "create"]
+        }
+      },
+      "response": []
     }
   ]
 }
