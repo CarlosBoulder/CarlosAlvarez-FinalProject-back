@@ -1,8 +1,13 @@
 import { type NextFunction, type Request, type Response } from "express";
 import boulderMock from "../../../mocks/boulderMock.js";
-import { deleteBoulder, getBoulders } from "./bouldersControllers.js";
+import {
+  addBoulder,
+  deleteBoulder,
+  getBoulders,
+} from "./bouldersControllers.js";
 import Boulder from "../../../database/models/Boulders.js";
 import CustomError from "../../../customError/CustomError.js";
+import { type BoulderDetailsRequest } from "../../types.js";
 
 interface CustomRequest extends Request {
   userId: string;
@@ -116,6 +121,67 @@ describe("Given a deleteBoulder controller", () => {
       );
 
       expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given an addBoulder controller", () => {
+  describe("When it receives a new boulder", () => {
+    const req: Pick<BoulderDetailsRequest, "body"> = {
+      body: {
+        boulderDetailsBody: {
+          country: "testCountry",
+          crag: "testCrag",
+          description: "testDescription",
+          grade: "testGrade",
+          img: "testImg",
+          name: "testName",
+          spot: "testSpot",
+        },
+      },
+    };
+
+    Boulder.create = jest.fn().mockResolvedValue(req.body.boulderDetailsBody);
+
+    test("Then it should return a 201 status", async () => {
+      const expectedStatusCode = 201;
+
+      await addBoulder(req as BoulderDetailsRequest, res as Response, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
+    });
+
+    test("Then it should return the expected message", async () => {
+      const expectedMessage = "Boulder created";
+
+      await addBoulder(req as BoulderDetailsRequest, res as Response, next);
+
+      expect(res.json).toHaveBeenCalledWith({ message: expectedMessage });
+    });
+  });
+
+  describe("When it receives an undefined boulder", () => {
+    test("Then it should return a 400 status", async () => {
+      const req: Pick<BoulderDetailsRequest, "body"> = {
+        body: {
+          boulderDetailsBody: {
+            country: "testCountry",
+            crag: "testCrag",
+            description: "testDescription",
+            grade: "testGrade",
+            img: "testImg",
+            name: "testName",
+            spot: "testSpot",
+          },
+        },
+      };
+
+      Boulder.create = jest.fn().mockResolvedValue(undefined);
+      const error = new CustomError(400, "Could not create your boulder");
+
+      await addBoulder(req as BoulderDetailsRequest, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 });

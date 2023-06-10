@@ -32,7 +32,7 @@ export interface AuthRequest extends Request {
 export type CustomResponse = Pick<Response, "status" | "json">;
 
 export interface BoulderDetails {
-  body: BoulderDetailsBody;
+  boulderDetailsBody: BoulderDetailsBody;
 }
 
 export type BoulderDetailsRequest = Request<

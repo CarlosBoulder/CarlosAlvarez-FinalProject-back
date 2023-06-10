@@ -45,7 +45,7 @@ export const addBoulder = async (
   next: NextFunction
 ) => {
   try {
-    const { body } = req.body;
+    const { boulderDetailsBody: body } = req.body;
 
     const newboulder = await Boulder.create({
       ...body,
