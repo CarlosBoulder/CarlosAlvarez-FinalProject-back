@@ -129,7 +129,7 @@ describe("Given an addBoulder controller", () => {
   describe("When it receives a new boulder", () => {
     const req: Pick<BoulderDetailsRequest, "body"> = {
       body: {
-        boulderDetailsBody: {
+        boulderDetails: {
           country: "testCountry",
           crag: "testCrag",
           description: "testDescription",
@@ -141,7 +141,7 @@ describe("Given an addBoulder controller", () => {
       },
     };
 
-    Boulder.create = jest.fn().mockResolvedValue(req.body.boulderDetailsBody);
+    Boulder.create = jest.fn().mockResolvedValue(req.body.boulderDetails);
 
     test("Then it should return a 201 status", async () => {
       const expectedStatusCode = 201;
@@ -164,7 +164,7 @@ describe("Given an addBoulder controller", () => {
     test("Then it should return a 400 status", async () => {
       const req: Pick<BoulderDetailsRequest, "body"> = {
         body: {
-          boulderDetailsBody: {
+          boulderDetails: {
             country: "testCountry",
             crag: "testCrag",
             description: "testDescription",
