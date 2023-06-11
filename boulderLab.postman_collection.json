@@ -63,7 +63,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDcwNWYyOTU0YWVhZTkyNWQ0NmQ4ZDQiLCJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODYwNTgwNDksImV4cCI6MTY4NjE0NDQ0OX0.EUfDrp7nxH0O5GN7d_CifmG1w1InzQc8b7csJDv7Qog",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDcwNWYyOTU0YWVhZTkyNWQ0NmQ4ZDQiLCJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODYyNDM3MTB9.W8Jdt11_3fEFASaFr9o_tICK2dtLd378R5mS8JHiulU",
               "type": "string"
             }
           ]
@@ -136,6 +136,14 @@
           "port": "4000",
           "path": ["boulders", "create"]
         }
+      },
+      "response": []
+    },
+    {
+      "name": "Paginated",
+      "request": {
+        "method": "GET",
+        "header": []
       },
       "response": []
     }
