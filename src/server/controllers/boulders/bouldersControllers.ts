@@ -17,6 +17,36 @@ export const getBoulders = async (
   }
 };
 
+export const getPaginatedBoulders = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { page = 1 } = req.query;
+    const limit = 5;
+    const startIndex = (Number(page) - 1) * Number(limit);
+
+    const totalBoulders = await Boulder.countDocuments().exec();
+
+    const boulders = await Boulder.find()
+      .skip(startIndex)
+      .limit(Number(limit))
+      .exec();
+
+    const paginationResponse = {
+      totalBoulders,
+      totalPages: Math.ceil(totalBoulders / Number(limit)),
+      currentPage: Number(page),
+      boulders,
+    };
+
+    res.status(200).json(paginationResponse);
+  } catch (error: unknown) {
+    next(error);
+  }
+};
+
 export const deleteBoulder = async (
   req: Request<{ boulderId: string }>,
   res: Response,

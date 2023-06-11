@@ -4,6 +4,7 @@ import {
   addBoulder,
   deleteBoulder,
   getBoulders,
+  getPaginatedBoulders,
 } from "./bouldersControllers.js";
 import Boulder from "../../../database/models/Boulders.js";
 import CustomError from "../../../customError/CustomError.js";
@@ -182,6 +183,72 @@ describe("Given an addBoulder controller", () => {
       await addBoulder(req as BoulderDetailsRequest, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given a getPaginatedBoulders controller", () => {
+  describe("When it receives a valid request", () => {
+    test("Then it should return a response with status 200", async () => {
+      const expectedStatusCode = 200;
+      const mockedBoulders = {
+        boulders: [
+          {
+            img: "Kkkk",
+            name: "Eclipse",
+            crag: "Techos",
+            spot: "Albarracin",
+            country: "España",
+            description: "Sit start",
+            grade: "7B",
+            id: "6485c7060d1aacb5f35bd4d1",
+          },
+        ],
+      };
+
+      const req: Partial<Request> = {
+        query: {
+          page: "1",
+        },
+      };
+
+      Boulder.countDocuments = jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue(6),
+      });
+
+      Boulder.find = jest.fn().mockReturnValue({
+        skip: jest.fn().mockReturnThis(),
+        limit: jest.fn().mockReturnThis(),
+        exec: jest.fn().mockResolvedValue(mockedBoulders),
+      });
+
+      await getPaginatedBoulders(
+        req as Request,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
+    });
+  });
+
+  describe("When it receives an invalid request", () => {
+    test("Then it should call the next function", async () => {
+      const req = {};
+
+      Boulder.find = jest.fn().mockReturnValue({
+        skip: jest.fn().mockReturnThis(),
+        limit: jest.fn().mockReturnThis(),
+        exec: jest.fn().mockRejectedValue(new Error()),
+      });
+
+      await getPaginatedBoulders(
+        req as Request,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });
