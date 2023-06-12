@@ -217,6 +217,7 @@ describe("Given a getPaginatedBoulders controller", () => {
       });
 
       Boulder.find = jest.fn().mockReturnValue({
+        sort: jest.fn().mockReturnThis(),
         skip: jest.fn().mockReturnThis(),
         limit: jest.fn().mockReturnThis(),
         exec: jest.fn().mockResolvedValue(mockedBoulders),

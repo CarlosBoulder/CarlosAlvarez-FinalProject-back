@@ -30,6 +30,7 @@ export const getPaginatedBoulders = async (
     const totalBoulders = await Boulder.countDocuments().exec();
 
     const boulders = await Boulder.find()
+      .sort({ _id: -1 })
       .skip(startIndex)
       .limit(Number(limit))
       .exec();
