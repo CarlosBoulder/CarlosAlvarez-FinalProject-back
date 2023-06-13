@@ -1,5 +1,4 @@
 import { type NextFunction, type Request, type Response } from "express";
-import boulderMock from "../../../mocks/boulderMock.js";
 import {
   addBoulder,
   deleteBoulder,
@@ -9,6 +8,7 @@ import {
 import Boulder from "../../../database/models/Boulders.js";
 import CustomError from "../../../customError/CustomError.js";
 import { type BoulderDetailsRequest } from "../../types.js";
+import { boulderMock } from "../../../mocks/boulderMock.js";
 
 interface CustomRequest extends Request {
   userId: string;

@@ -6,7 +6,7 @@ import connectToDatabase from "../../../database/connectToDatabase";
 import mongoose from "mongoose";
 import Boulder from "../../../database/models/Boulders.js";
 import { tokenMock } from "../../../mocks/tokenMock.js";
-import boulderMock from "../../../mocks/boulderMock.js";
+import { boulderMock, createboulderMock } from "../../../mocks/boulderMock.js";
 
 let server: MongoMemoryServer;
 const path = "/boulders/all";
@@ -14,7 +14,6 @@ const path = "/boulders/all";
 beforeAll(async () => {
   server = await MongoMemoryServer.create();
   await connectToDatabase(server.getUri());
-  await Boulder.create(boulderMock);
 });
 
 afterAll(async () => {
@@ -24,6 +23,14 @@ afterAll(async () => {
 
 afterEach(async () => {
   await Boulder.deleteMany();
+});
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
+beforeEach(async () => {
+  await Boulder.create(boulderMock);
 });
 
 describe("Given a GET 'boulders/all' endpoint", () => {
@@ -45,6 +52,38 @@ describe("Given a GET 'boulders/all' endpoint", () => {
       const expectedStatus = 401;
 
       await request(app).get(path).expect(expectedStatus);
+    });
+  });
+});
+
+describe("Given a Delete 'boulders/:boulderId' endpoint", () => {
+  describe("When it receives a request with boulder id", () => {
+    test("Then it should return a response with status 200 and message 'Boulder deleted", async () => {
+      const expectedStatusCode = 200;
+      const expectedMessage = "Boulder deleted";
+
+      const response = await request(app)
+        .delete(`/boulders/${boulderMock[0]._id.toString()}`)
+        .set("Authorization", `Bearer ${tokenMock}`)
+        .expect(expectedStatusCode);
+
+      expect(response.body.message).toBe(expectedMessage);
+    });
+  });
+});
+
+describe("Given a Post 'boulders/create' endpoint", () => {
+  describe("When it receives a request with new boulder with name 'Welcome to Tijuana'", () => {
+    test("Then it should return a response with status 200 and new boulder 'Welcome to Tijuana", async () => {
+      const expectedStatusCode = 201;
+
+      const response = await request(app)
+        .post("/boulders/create")
+        .set("Authorization", `Bearer ${tokenMock}`)
+        .send({ boulderDetails: createboulderMock })
+        .expect(expectedStatusCode);
+
+      expect(response.status).toBe(expectedStatusCode);
     });
   });
 });
