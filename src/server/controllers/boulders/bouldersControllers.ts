@@ -23,7 +23,7 @@ export const getPaginatedBoulders = async (
   next: NextFunction
 ) => {
   try {
-    const { page = 1 } = req.query;
+    const { page } = req.query;
     const limit = 5;
     const startIndex = (Number(page) - 1) * Number(limit);
 
