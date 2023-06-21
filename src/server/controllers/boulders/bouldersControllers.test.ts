@@ -2,6 +2,7 @@ import { type NextFunction, type Request, type Response } from "express";
 import {
   addBoulder,
   deleteBoulder,
+  getBoulder,
   getBoulders,
   getPaginatedBoulders,
 } from "./bouldersControllers.js";
@@ -250,6 +251,91 @@ describe("Given a getPaginatedBoulders controller", () => {
       );
 
       expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a getBoulder controller", () => {
+  describe("When it receives a valid request with Id '6470ddcd54aeae925d46d8d6'", () => {
+    test("Then it should return a response with status 200", async () => {
+      const req: CustomRequestWithParams = {
+        params: {
+          id: boulderMock[0]._id.toString(),
+        },
+      };
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+      const next = jest.fn();
+
+      const bouldersMock = boulderMock[0];
+
+      Boulder.findOne = jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue(bouldersMock),
+      });
+
+      await getBoulder(
+        req as Request<{ id: string }>,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(200);
+    });
+
+    test("Then it should return a boulder with the id '6470ddcd54aeae925d46d8d6'", async () => {
+      const req: CustomRequestWithParams = {
+        params: {
+          id: boulderMock[0]._id.toString(),
+        },
+      };
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+      const next = jest.fn();
+
+      const bouldersMock = boulderMock[0];
+
+      const expectedBoulder = { boulder: bouldersMock };
+
+      Boulder.findOne = jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue(bouldersMock),
+      });
+
+      await getBoulder(
+        req as Request<{ id: string }>,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.json).toHaveBeenCalledWith(expectedBoulder);
+    });
+  });
+
+  describe("When it receives a non valid id", () => {
+    test("Then it should call the next function with the message 'Boulder not found' error", async () => {
+      const req: CustomRequestWithParams = {
+        params: {
+          id: boulderMock[0]._id.toString(),
+        },
+      };
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+      const next = jest.fn();
+
+      const expectedError = new CustomError(404, "Boulder not found");
+
+      Boulder.findOne = jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue(null),
+      });
+
+      await getBoulder(req as Request<{ id: string }>, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
 });

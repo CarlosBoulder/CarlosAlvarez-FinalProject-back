@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   addBoulder,
   deleteBoulder,
+  getBoulder,
   getBoulders,
   getPaginatedBoulders,
 } from "../../controllers/boulders/bouldersControllers.js";
@@ -9,6 +10,8 @@ import {
 const boulderRouter = Router();
 
 boulderRouter.get("/all", getBoulders);
+
+boulderRouter.get("/:id", getBoulder);
 
 boulderRouter.get("/paged", getPaginatedBoulders);
 
