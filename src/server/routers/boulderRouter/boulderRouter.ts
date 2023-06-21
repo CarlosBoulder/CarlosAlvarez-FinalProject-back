@@ -9,11 +9,11 @@ import {
 
 const boulderRouter = Router();
 
+boulderRouter.get("/paged", getPaginatedBoulders);
+
 boulderRouter.get("/all", getBoulders);
 
 boulderRouter.get("/:id", getBoulder);
-
-boulderRouter.get("/paged", getPaginatedBoulders);
 
 boulderRouter.delete("/:boulderId", deleteBoulder);
 
