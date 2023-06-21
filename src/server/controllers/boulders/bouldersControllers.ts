@@ -94,3 +94,24 @@ export const addBoulder = async (
     next(error);
   }
 };
+
+export const getBoulder = async (
+  req: Request<{ id: string }>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const boulder = await Boulder.findOne({ _id: id }).exec();
+
+    if (!boulder) {
+      const error = new CustomError(404, "Boulder not found");
+
+      throw error;
+    }
+
+    res.status(200).json({ boulder });
+  } catch (error: unknown) {
+    next(error);
+  }
+};
